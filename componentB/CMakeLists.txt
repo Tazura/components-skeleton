@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.16)
 project(componentB VERSION 1.0 LANGUAGES C CXX)
 
 set(${PROJECT_NAME}_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -90,14 +90,14 @@ add_subdirectory(tests)
 
 # Install
 include(CMakePackageConfigHelpers)
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/install/${PROJECT_NAME}ConfigVersion.cmake VERSION ${PROJECT_VERSION} COMPATIBILITY SameMajorVersion)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/install/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake)
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake VERSION ${PROJECT_VERSION} COMPATIBILITY SameMajorVersion)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake)
 install(EXPORT ${PROJECT_NAME}-targets FILE ${PROJECT_NAME}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake)
 
 # Package
 export(PACKAGE ${PROJECT_NAME})
-file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/package/${PROJECT_NAME}Config.cmake "# Empty file to trick find_package when added by add_subdirectory")
-set(${PROJECT_NAME}_DIR ${CMAKE_CURRENT_BINARY_DIR}/package CACHE PATH "${PROJECT_NAME} binary directory" FORCE)
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/_package/${PROJECT_NAME}Config.cmake "# Empty file to trick find_package when added by add_subdirectory")
+set(${PROJECT_NAME}_DIR ${CMAKE_CURRENT_BINARY_DIR}/_package CACHE PATH "${PROJECT_NAME} config directory" FORCE)
 
 # CPack
 set(CPACK_GENERATOR TGZ)	
