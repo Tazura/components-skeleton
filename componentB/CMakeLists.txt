@@ -41,6 +41,7 @@ target_include_directories(${PROJECT_NAME}-lib
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}		
 )
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA::componentA)
 #target_link_libraries(${PROJECT_NAME}-lib PUBLIC Boost::boost Threads::Threads rt)
 #target_link_libraries(${PROJECT_NAME}-lib PRIVATE systemd Boost::system Boost::filesystem Boost::iostreams Boost::program_options)
 install(TARGETS ${PROJECT_NAME}-lib
@@ -68,6 +69,7 @@ target_include_directories(${PROJECT_NAME}-slib
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}		
 )
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA::componentA-static)
 #target_link_libraries(${PROJECT_NAME}-slib PUBLIC Boost::boost Threads::Threads rt)
 #target_link_libraries(${PROJECT_NAME}-slib PRIVATE systemd Boost::system Boost::filesystem Boost::iostreams Boost::program_options)
 install(TARGETS ${PROJECT_NAME}-slib
@@ -91,8 +93,8 @@ add_subdirectory(tests)
 # Install
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake VERSION ${PROJECT_VERSION} COMPATIBILITY SameMajorVersion)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake)
-install(EXPORT ${PROJECT_NAME}-targets FILE ${PROJECT_NAME}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+install(EXPORT ${PROJECT_NAME}-targets FILE ${PROJECT_NAME}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 # Package
 export(PACKAGE ${PROJECT_NAME})
