@@ -15,7 +15,8 @@ include(GNUInstallDirs)
 include(CTest)
 enable_testing()
 
-#set(CMAKE_CXX_VISIBILITY_PRESET default)
+# Find packages
+find_package(common-cmake-modules REQUIRED)
 
 # Sources
 file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/*)
@@ -81,7 +82,7 @@ export(TARGETS ${PROJECT_NAME}-slib APPEND FILE ${${PROJECT_NAME}_BINARY_DIR}/${
 # Configurations files
 file(GLOB_RECURSE ${PROJECT_NAME}_CONFIGS ${CMAKE_CURRENT_SOURCE_DIR}/conf/*)
 if (${PROJECT_NAME}_CONFIGS)
-	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
+	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION /${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
 endif()
 
 # Target: Tests

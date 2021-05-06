@@ -5,5 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/.gitignore "*")
 
+
+add_subdirectory(common-cmake-modules)
 add_subdirectory(componentA)
 add_subdirectory(componentB)
