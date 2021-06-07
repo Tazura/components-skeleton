@@ -1,8 +1,10 @@
 if (NOT CMAKE_HELPERS_ONCE)
-    set(CMAKE_HELPERS_ONCE ON CACHE BOOL "" FORCE)
+    #set(CMAKE_HELPERS_ONCE ON CACHE BOOL "" FORCE)
+    set(CMAKE_HELPERS_ONCE ON)
 
     file(GLOB CMAKE_HELPERS_MODULES ${CMAKE_CURRENT_LIST_DIR}/modules/*.cmake)
     list(SORT CMAKE_HELPERS_MODULES)
+
     foreach(module ${CMAKE_HELPERS_MODULES})
 
         include(${module})

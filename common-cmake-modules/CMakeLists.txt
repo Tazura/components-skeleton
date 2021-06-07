@@ -22,6 +22,8 @@ export(PACKAGE ${PROJECT_NAME})
 # Support find_package while added by add_subdirectory
 set(${PROJECT_NAME}_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "" FORCE)
 
+#include(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake)
+
 # CPack
 set(CPACK_GENERATOR TGZ)	
 set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)

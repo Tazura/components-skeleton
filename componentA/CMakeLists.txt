@@ -1,19 +1,22 @@
 cmake_minimum_required(VERSION 3.16)
 project(componentA VERSION 1.0 LANGUAGES C CXX)
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/.gitignore "*")
 
 set(${PROJECT_NAME}_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(${PROJECT_NAME}_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 14)
-
-file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/.gitignore "*")
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # Increase me everytime you changes the interface
 set(SO_VERSION 1)
 
+include(GenerateExportHeader)
 include(GNUInstallDirs)
 include(CTest)
 enable_testing()
+
 
 # Find packages
 find_package(common-cmake-modules REQUIRED)
@@ -24,11 +27,13 @@ file(GLOB_RECURSE ${PROJECT_NAME}_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/inc
 set(${PROJECT_NAME}_SOURCES 
 	componentA.cpp
 )
+message("componentA - 11111")
+
 
 # Target: shared
 add_library(${PROJECT_NAME}-lib SHARED ${${PROJECT_NAME}_SOURCES})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME}-lib)
-
+generate_export_header(${PROJECT_NAME}-lib BASE_NAME ${PROJECT_NAME} EXPORT_FILE_NAME ${PROJECT_NAME}_exports.h)
 set_target_properties(${PROJECT_NAME}-lib PROPERTIES OUTPUT_NAME ${PROJECT_NAME} CLEAN_DIRECT_OUTPUT 1)
 set_target_properties(${PROJECT_NAME}-lib PROPERTIES PUBLIC_HEADER "${${PROJECT_NAME}_PUBLIC_HEADERS}")
 set_target_properties(${PROJECT_NAME}-lib PROPERTIES VERSION ${PROJECT_VERSION})
@@ -82,7 +87,7 @@ export(TARGETS ${PROJECT_NAME}-slib APPEND FILE ${${PROJECT_NAME}_BINARY_DIR}/${
 # Configurations files
 file(GLOB_RECURSE ${PROJECT_NAME}_CONFIGS ${CMAKE_CURRENT_SOURCE_DIR}/conf/*)
 if (${PROJECT_NAME}_CONFIGS)
-	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION /${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
+	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
 endif()
 
 # Target: Tests

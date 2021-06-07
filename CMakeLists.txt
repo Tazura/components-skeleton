@@ -9,3 +9,10 @@ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/.gitignore "*")
 add_subdirectory(common-cmake-modules)
 add_subdirectory(componentA)
 add_subdirectory(componentB)
+
+
+
+# get_cmake_property(_variableNames VARIABLES)
+# foreach (_variableName ${_variableNames})
+#     message(STATUS "${_variableName}=${${_variableName}}")
+# endforeach()

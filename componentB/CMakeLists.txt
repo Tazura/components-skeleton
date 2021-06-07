@@ -42,7 +42,7 @@ target_include_directories(${PROJECT_NAME}-lib
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}		
 )
-target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA::componentA)
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA-lib)
 #target_link_libraries(${PROJECT_NAME}-lib PUBLIC Boost::boost Threads::Threads rt)
 #target_link_libraries(${PROJECT_NAME}-lib PRIVATE systemd Boost::system Boost::filesystem Boost::iostreams Boost::program_options)
 install(TARGETS ${PROJECT_NAME}-lib
@@ -70,7 +70,7 @@ target_include_directories(${PROJECT_NAME}-slib
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}		
 )
-target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA::componentA-static)
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC componentA-slib)
 #target_link_libraries(${PROJECT_NAME}-slib PUBLIC Boost::boost Threads::Threads rt)
 #target_link_libraries(${PROJECT_NAME}-slib PRIVATE systemd Boost::system Boost::filesystem Boost::iostreams Boost::program_options)
 install(TARGETS ${PROJECT_NAME}-slib
@@ -85,7 +85,7 @@ export(TARGETS ${PROJECT_NAME}-slib APPEND FILE ${${PROJECT_NAME}_BINARY_DIR}/${
 # Configurations files
 file(GLOB_RECURSE ${PROJECT_NAME}_CONFIGS ${CMAKE_CURRENT_SOURCE_DIR}/conf/*)
 if (${PROJECT_NAME}_CONFIGS)
-	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION /${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
+	install(FILES ${${PROJECT_NAME}_CONFIGS} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME})
 endif()
 
 # Target: Tests
